@@ -1,7 +1,7 @@
 # Othello Game
 
 A multi-player Othello game that allows clients to play against each other on a server.<br>
-Othello is a two-player board game where the two players take turn placing discs of their color.<br>
+Othello is a two-player board game where the two players take turns placing discs of their color.<br>
 Each move must capture at least one disc of the opponent. If this is not possible, the player must pass, unless the other player also cannot make such a move. <br>
 The game ends when neither player can capture from their opponent. The winner is the player with the most discs. The game ends in a draw when both players have the same number of discs.<br>
 For more info about the rules of Othello, see https://www.worldothello.org/about/about-othello/othello-rules/official-rules/english
@@ -36,19 +36,25 @@ $ git clone https://github.com/AnghelusCristi/Othello_Game.git
 
 - The client is started via a TUI, namely the OthelloTUI class in the client package, nested in the network package.<br><br>
 - The user will be prompted to enter the IP address and port number of the server (default is localhost and port 44444).<br><br>
-- The user will then be prompted to enter a username. The username should be unique in the server.<br><br>
-- After successful connection, the user will be prompted with the main menu explaining the available commands and how to use them (See Commands).<br><br>
+- The user will then be prompted to enter a username. The username should be unique on the server.<br><br>
+- After a successful connection, the user will be prompted with the main menu explaining the available commands and how to use them (See Commands).<br><br>
 
+### Playing a Game
+- After a successful connection, the user can play a game by joining the queue (see Commands). <br>
+- Once there are 2 players on the server in a queue, the server will match them and a new game will begin.<br>
+- Make the moves with the appropriate command. The game status will be updated after each move. <br>
+- If you want to enable the AI to play the games for you, use the command `ai strategy` before joining a game (See Commands).
 
 ### Commands
+After a successful connection, the users can use the following commands via the TUI:
 <pre>
 - list                           - List of connected users in the server separated by ~.
 - queue                          - Adds you to the queue to play a game. If used again, removes you from the queue. 
 - move A/a                       - Make your move in the game: A/a - letter where you want to place your mark.
                                    You will see all available moves represented as letters on the board. Make a move with one of the letters.
                                    You can use both lowercase and uppercase letters to make your move.
--ai strategy                     - Enter before joining a game to enable an AI which will automatically play games for you. Enter simply 'ai' to disable it.
-                                   The strategy parameter can be 0, 1, 2, 3, (4 n):
+-ai strategy                     - Enter before joining a game to enable an AI that will automatically play games for you. Enter simply 'ai' to disable it.
+                                   The strategy parameter can be 0, 1, 2, 3, 4:
                                    0: NaiveStrategy - This strategy chooses a random legal move.
                                    1: LimitingStrategy - This strategy is based on the premise of giving your opponent the least possible moves, since this may cause you to get more moves.
                                       Statistic: 66% win against Naive
@@ -58,10 +64,10 @@ $ git clone https://github.com/AnghelusCristi/Othello_Game.git
                                    3: StackStrategy - A combination of strategies 2 and 1.
                                       Stackable strategies are strategies that can be used one after the other. This is created by a StackStrategy.
                                       The premise of this stacking is that a strategy can have multiple "best fields" For example, a strategy limiting the
-                                      other players turns can have 2 move which cause the next player to have 0 moves. These 2 moves are then passed on
+                                      other players' turns can have 2 moves which causes the next player to have 0 moves. These 2 moves are then passed on
                                       to the next Stackable strategy in the stack, which then filters based on its strategy.
                                    4: MiniMaxStrategy - The minimax strategy looks at n turns in the future to determine what is the best move, assuming the opponent has perfect play.
-                                      A second parameter n is optional to determine the depth, else it will use depth 5. This has effect on the calculation time.
+                                      A second parameter n is optional to determine the depth, else it will use depth 5. This affects the calculation time.
 -hint                             - Gives you a legal move suggested by the FieldValueStrategy AI.
                                     Can be used only when it's your turn in a game.
 -help                             - Print the help menu.
@@ -70,5 +76,5 @@ $ git clone https://github.com/AnghelusCristi/Othello_Game.git
 
 ## Documentation
 
-More detailed documentation for the project can be found in the `documentation` folder and can be read in a web browser.
+The project's Javadoc can be found in the `documentation` folder and read in a web browser.
 
